@@ -1,4 +1,4 @@
-body {
+/* body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -10,4 +10,25 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+} */
+
+.todo-card .form-check-input:checked {
+  background-color: 	#909294;
+  border-color: 	#909294;
+}
+.todo-card .form-check-input:focus {
+  box-shadow: 0 0 0 0.25rem rgb(210, 214, 216);
+  border-color: 	#909294;
+}
+
+/* .todo-card .form-check-input{
+  margin: 12px 0px 0 10px;
+} */
+
+.menu {
+  transition: max-height 0.3s ease-in-out;
+}
+
+.menu.hidden {
+  max-height: 0;
 }
