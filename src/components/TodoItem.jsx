@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPen, faTrashAlt, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 
 const TodoItem = ({ todo, onDelete, onToggle, onEdit }) => {
@@ -16,6 +16,7 @@ const TodoItem = ({ todo, onDelete, onToggle, onEdit }) => {
   const handleEdit = () => {
     // console.log(editedPriority);
     onEdit(id, editedText, editedDateAdded, editedDateDue, editedPriority);
+    setEditMode(false);
   };
 
   return (
@@ -30,8 +31,8 @@ const TodoItem = ({ todo, onDelete, onToggle, onEdit }) => {
               className='form-check-input ms-2 mt-2 me-1' />
           </div>
           <div className='flex-grow-1'>
-            <div className='text-start m-2'>
-              <span>
+            <div className='text-start m-2'  style={{ whiteSpace: 'pre-line' }}>
+              <span >
                 {text}
               </span>
             </div>
@@ -50,51 +51,58 @@ const TodoItem = ({ todo, onDelete, onToggle, onEdit }) => {
           </div>
         </div>
       ) : (
-        <div className='d-flex flex-row'>
-          <form>
-            <div className='form-group'>
-              <input
-                type='text'
+        <div className='d-flex flex-column'>
+          <form className='ms-2 mt-2 me-2'>
+            <div className='form-group mb-3'>
+              <textarea
                 id='editedText'
                 className='form-control'
+                rows={5}
                 value={editedText}
                 onChange={(e) => setEditedText(e.target.value)}
               />
             </div>
-            <div className='form-group'>
-              <label htmlFor='editedDateAdded'>Added:</label>
-              <input
-                type='date'
-                id='editedDateAdded'
-                className='form-control'
-                value={editedDateAdded}
-                onChange={(e) => setEditedDateAdded(e.target.value)}
-              />
+
+            <div className='d-flex flex-row flex-wrap align-items-center justify-content-between'>
+              <div className='form-group d-flex flex-row flex-wrap align-items-center justify-content-between w-auto'>
+                <div className='form-group d-flex flex-row flex-wrap align-items-center me-2 mb-3'>
+                  <label htmlFor='editedDateAdded' className='me-2'>Added:</label>
+                  <input
+                    type='date'
+                    id='editedDateAdded'
+                    className='form-control w-auto'
+                    value={editedDateAdded}
+                    onChange={(e) => setEditedDateAdded(e.target.value)}
+                  />
+                </div>
+                <div className='form-group d-flex flex-row flex-wrap align-items-center mb-3'>
+                  <label htmlFor='editedDateDue' className='me-2'>Due:</label>
+                  <input
+                    type='date'
+                    id='editedDateDue'
+                    className='form-control w-auto'
+                    value={editedDateDue}
+                    onChange={(e) => setEditedDateDue(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div className='form-group d-flex flex-row flex-wrap align-items-center mb-3'>
+                <label htmlFor='editedPriority' className='me-2'>Priority:</label>
+                <select
+                  id='editedPriority'
+                  className='form-control w-auto'
+                  value={editedPriority}
+                  onChange={(e) => setEditedPriority(e.target.value)}>
+                  <option value='high'>High</option>
+                  <option value='medium'>Medium</option>
+                  <option value='low'>Low</option>
+                </select>
+              </div>
+              <div className='form-group d-flex flex-row flex-wrap align-items-center justify-content-between mb-3'>
+                <button type='button' className='btn' onClick={() => handleEdit()}><FontAwesomeIcon icon={faCheck} /></button>
+                <button type='button' className='btn' onClick={() => setEditMode(false)}><FontAwesomeIcon icon={faTimes} /></button></div>
             </div>
-            <div className='form-group'>
-              <label htmlFor='editedDateDue'>Due:</label>
-              <input
-                type='date'
-                id='editedDateDue'
-                className='form-control'
-                value={editedDateDue}
-                onChange={(e) => setEditedDateDue(e.target.value)}
-              />
-            </div>
-            <div className='form-group'>
-              <label htmlFor='editedPriority'>Priority:</label>
-              <select
-                id='editedPriority'
-                className='form-control'
-                value={editedPriority}
-                onChange={(e) => setEditedPriority(e.target.value)}>
-                <option value='high'>High</option>
-                <option value='medium'>Medium</option>
-                <option value='low'>Low</option>
-              </select>
-            </div>
-            <button type='button' className='btn btn-primary' onClick={() => handleEdit()}>Save</button>
-            <button type='button' className='btn btn-secondary' onClick={() => setEditMode(false)}>Cancel</button>
           </form>
         </div>
       )}
