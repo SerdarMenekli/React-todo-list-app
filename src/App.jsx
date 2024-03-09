@@ -116,27 +116,33 @@ const App = () => {
   return (
     <div className=''>
       <div className='row'>
-        <div className='col-3'>
+        <div className='col-lg-3 d-none d-lg-block'>
         </div>
-        <div className='col-6'>
-          <div className='col-10 container text-center'>
+        <div className='col-12 col-lg-6'>
+          <div className='container text-center'>
             <h1 className='mt-3 mb-3 text-center'>Todo List</h1>
             <AddTaskForm onAdd={onAdd} />
             <TodoList todos={filterTodos()} onDelete={onDelete} onToggle={onToggle} onEdit={onEdit} />
           </div>
         </div>
-        <Menu
-          onSearch={onSearch}
-          filter={filter}
-          setFilter={setFilter}
-          sort={sort}
-          onSort={onSort}
-          sortDirection={sortDirection}
-          onSortDirectionChange={onSortDirectionChange}
-          isMenuVisible={isMenuVisible}
-          toggleMenu={toggleMenu}
-          resetFilters={resetFilters}
-        />
+        <div className='col-12 col-lg-3'>
+          <div className='fixed-top'>
+            <Menu
+              onSearch={onSearch}
+              filter={filter}
+              setFilter={setFilter}
+              sort={sort}
+              onSort={onSort}
+              sortDirection={sortDirection}
+              onSortDirectionChange={onSortDirectionChange}
+              isMenuVisible={isMenuVisible}
+              toggleMenu={toggleMenu}
+              resetFilters={resetFilters}
+            />
+          </div>
+
+        </div>
+
         {/* <div className='col-3 d-flex flex-column align-items-end justify-content-start'>
           <button type="button" className="mt-3 me-3 btn" onClick={toggleMenu}>
             <FontAwesomeIcon icon={isMenuVisible ? faChevronRight : faChevronLeft} />

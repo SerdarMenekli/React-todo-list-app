@@ -12,7 +12,7 @@ import SearchBar from './SearchBar';
 
 const Menu = ({ toggleMenu, isMenuVisible, onSearch, filter, setFilter, sort, onSort, sortDirection, onSortDirectionChange, resetFilters }) => {
     return (
-        <div className='col-3 d-flex flex-column align-items-end justify-content-start'>
+        <div className='d-flex flex-column align-items-end justify-content-start'>
             <button type="button" className="mt-3 me-3 btn" onClick={toggleMenu}>
                 <FontAwesomeIcon icon={isMenuVisible ? faChevronRight : faChevronLeft} />
             </button>
