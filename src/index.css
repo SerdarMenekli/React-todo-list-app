@@ -11,14 +11,35 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 } */
+:root {
+  --selected-color: hsl(0, 0, 57%);
+  --selected-color-lightness: 57%;
+  
+  --multiplier: 1.45;
+
+  --selected-color-box-shadow: hsl(0, 0%, calc(var(--multiplier) * var(--selected-color-lightness)));
+}
+
+
 
 .todo-card .form-check-input:checked {
-  background-color: 	#909294;
-  border-color: 	#909294;
+  background-color: var(--selected-color);
+  border-color: var(--selected-color);
 }
+
 .todo-card .form-check-input:focus {
-  box-shadow: 0 0 0 0.25rem rgb(210, 214, 216);
-  border-color: 	#909294;
+  box-shadow: 0 0 0 0.25rem var(--selected-color-box-shadow);
+  border-color: var(--selected-color);
+}
+
+.color-picker .form-check-input:focus {
+  box-shadow: 0 0 0 0.25rem var(--selected-color-box-shadow);
+  border-color: var(--selected-color);
+}
+
+.color-picker .form-check-input:checked[type=radio] {
+  border-color: var(--selected-color);
+  --bs-form-check-bg-image: none;
 }
 
 /* .todo-card .form-check-input{

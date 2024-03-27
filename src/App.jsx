@@ -35,6 +35,8 @@ const App = () => {
   const [sort, setSort] = useState('default');
   const [searchQuery, setSearchQuery] = useState('');
   const [sortDirection, setSortDirection] = useState('ascending');
+  const [selectedColor, setSelectedColor] = useState('gray');
+  const colorArray = ["gray", "red", "orange", "yellow", "green", "blue", "violet"]
   // const [sortAsc, setSortAsc] = useState(true);
 
   const onDelete = (id) => { setTodos(todos.filter((todo) => todo.id !== id)); };
@@ -126,7 +128,7 @@ const App = () => {
           </div>
         </div>
         <div className='col-12 col-lg-3'>
-          <div className='fixed-top'>
+          <div className='fixed-top' style={{ left: 'auto' }}>
             <Menu
               onSearch={onSearch}
               filter={filter}
@@ -138,6 +140,9 @@ const App = () => {
               isMenuVisible={isMenuVisible}
               toggleMenu={toggleMenu}
               resetFilters={resetFilters}
+              selectedColor={selectedColor}
+              setSelectedColor={setSelectedColor}
+              colorArray={colorArray}
             />
           </div>
 
