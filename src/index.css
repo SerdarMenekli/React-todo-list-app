@@ -12,12 +12,27 @@ code {
     monospace;
 } */
 :root {
-  --selected-color: hsl(0, 0, 57%);
-  --selected-color-lightness: 57%;
+  --selected-color: rgb(143, 143, 143);
+  --selected-color-box-shadow: rgb(209, 209, 209);
   
   --multiplier: 1.45;
 
-  --selected-color-box-shadow: hsl(0, 0%, calc(var(--multiplier) * var(--selected-color-lightness)));
+
+  /* "gray", "red", "orange", "yellow", "green", "blue", "violet" */
+  --gray-color:hsl(0, 0%, 56%);
+  --gray-color-box-shadow: hsl(0, 0%, 82%);
+  --red-color:hsl(0, 100%, 50%);
+  --red-color-box-shadow: hsl(0, 100%, 72%);
+  --orange-color:hsl(39, 100%, 50%);
+  --orange-color-box-shadow: hsl(39, 100%, 72%);
+  --yellow-color:hsl(60, 100%, 50%);
+  --yellow-color-box-shadow: hsl(60, 100%, 72%);
+  --green-color:hsl(120, 100%, 25%);
+  --green-color-box-shadow: hsl(120, 100%, 36%);
+  --blue-color:hsl(240, 100%, 50%);
+  --blue-color-box-shadow: hsl(240, 100%, 72%);
+  --violet-color:hsl(300, 76%, 72%);
+  --violet-color-box-shadow: hsl(300, 76%, 92%);
 }
 
 
@@ -26,19 +41,80 @@ code {
   background-color: var(--selected-color);
   border-color: var(--selected-color);
 }
-
 .todo-card .form-check-input:focus {
   box-shadow: 0 0 0 0.25rem var(--selected-color-box-shadow);
   border-color: var(--selected-color);
 }
 
-.color-picker .form-check-input:focus {
+/* .color-picker .form-check-input:focus {
   box-shadow: 0 0 0 0.25rem var(--selected-color-box-shadow);
   border-color: var(--selected-color);
 }
-
 .color-picker .form-check-input:checked[type=radio] {
   border-color: var(--selected-color);
+  --bs-form-check-bg-image: none;
+} */
+
+#grayRadio:focus {
+  box-shadow: 0 0 0 0.25rem var(--gray-color-box-shadow);
+  border-color: var(--gray-color);
+}
+#grayRadio:checked[type=radio] {
+  border-color: var(--gray-color);
+  --bs-form-check-bg-image: none;
+}
+
+#redRadio:focus {
+  box-shadow: 0 0 0 0.25rem var(--red-color-box-shadow);
+  border-color: var(--red-color);
+}
+#redRadio:checked[type=radio] {
+  border-color: var(--red-color);
+  --bs-form-check-bg-image: none;
+}
+
+#orangeRadio:focus {
+  box-shadow: 0 0 0 0.25rem var(--orange-color-box-shadow);
+  border-color: var(--orange-color);
+}
+#orangeRadio:checked[type=radio] {
+  border-color: var(--orange-color);
+  --bs-form-check-bg-image: none;
+}
+
+#yellowRadio:focus {
+  box-shadow: 0 0 0 0.25rem var(--yellow-color-box-shadow);
+  border-color: var(--yellow-color);
+}
+#yellowRadio:checked[type=radio] {
+  border-color: var(--yellow-color);
+  --bs-form-check-bg-image: none;
+}
+
+#greenRadio:focus {
+  box-shadow: 0 0 0 0.25rem var(--green-color-box-shadow);
+  border-color: var(--green-color);
+}
+#greenRadio:checked[type=radio] {
+  border-color: var(--green-color);
+  --bs-form-check-bg-image: none;
+}
+
+#blueRadio:focus {
+  box-shadow: 0 0 0 0.25rem var(--blue-color-box-shadow);
+  border-color: var(--blue-color);
+}
+#blueRadio:checked[type=radio] {
+  border-color: var(--blue-color);
+  --bs-form-check-bg-image: none;
+}
+
+#violetRadio:focus {
+  box-shadow: 0 0 0 0.25rem var(--violet-color-box-shadow);
+  border-color: var(--violet-color);
+}
+#violetRadio:checked[type=radio] {
+  border-color: var(--violet-color);
   --bs-form-check-bg-image: none;
 }
 

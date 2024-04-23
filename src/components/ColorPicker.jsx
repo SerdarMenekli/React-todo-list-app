@@ -6,6 +6,12 @@ const ColorPicker = ({selectedColor, setSelectedColor, colorArray}) => {
     //const colorArray = ["gray", "red", "orange", "yellow", "green", "blue", "violet"]
     const handleColorChange = (event) => {
         setSelectedColor(event.target.value);
+        document.documentElement.style.setProperty(`--selected-color`, event.target.value);
+
+        const boxShadowString = `--${event.target.value}-color-box-shadow`;
+        const boxShadowValue = getComputedStyle(document.documentElement).getPropertyValue(boxShadowString);
+
+        document.documentElement.style.setProperty(`--selected-color-box-shadow`, boxShadowValue);
     };
 
     return (
