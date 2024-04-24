@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useReducer, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import "./index.css";
+
+import { getCurrentDate } from './script/GetCurrentDate';
 
 import TodoList from './components/TodoList';
 import AddTaskForm from './components/AddTaskForm';
@@ -12,7 +14,21 @@ import Menu from './components/Menu';
 import { faL } from '@fortawesome/free-solid-svg-icons';
 
 const App = () => {
-  const [todos, setTodos] = useState([
+  function todoReducer(todos, action) {
+    switch (action.type) {
+      case 'add':
+        return [...todos, { id: nextId++, text: action.text, completed: false, dateAdded: getCurrentDate('-'), dateDue: getCurrentDate('-'), priority: 'medium' }];
+      case 'delete':
+        return todos.filter(todo => (todo.id !== action.id));
+      case 'toggle':
+        return todos.map((todo) => todo.id === action.id ? { ...todo, completed: !todo.completed } : todo);
+      case 'edit':
+        return [...todos.filter(todo => todo.id !== action.id), action.editedTodo];
+    }
+  }
+
+  let nextId = 16;
+  const initialTodos = [
     { id: 1, text: 'Learn React', completed: false, dateAdded: '2024-02-07', dateDue: '2024-02-14', priority: 'high' },
     { id: 2, text: 'Build a todo app', completed: false, dateAdded: '2024-02-08', dateDue: '2024-02-15', priority: 'medium' },
     { id: 3, text: 'Deploy the app', completed: false, dateAdded: '2024-02-09', dateDue: '2024-02-16', priority: 'low' },
@@ -28,7 +44,27 @@ const App = () => {
     { id: 13, text: 'Go grocery shopping', completed: false, dateAdded: '2024-02-19', dateDue: '2024-02-26', priority: 'high' },
     { id: 14, text: 'Read emails', completed: false, dateAdded: '2024-02-20', dateDue: '2024-02-27', priority: 'medium' },
     { id: 15, text: 'Do laundry', completed: false, dateAdded: '2024-02-21', dateDue: '2024-02-28', priority: 'low' },
-  ]);
+  ];
+
+  // const [todos, setTodos] = useState([
+  //   { id: 1, text: 'Learn React', completed: false, dateAdded: '2024-02-07', dateDue: '2024-02-14', priority: 'high' },
+  //   { id: 2, text: 'Build a todo app', completed: false, dateAdded: '2024-02-08', dateDue: '2024-02-15', priority: 'medium' },
+  //   { id: 3, text: 'Deploy the app', completed: false, dateAdded: '2024-02-09', dateDue: '2024-02-16', priority: 'low' },
+  //   { id: 4, text: 'Read a book', completed: false, dateAdded: '2024-02-10', dateDue: '2024-02-17', priority: 'high' },
+  //   { id: 5, text: 'Exercise', completed: false, dateAdded: '2024-02-11', dateDue: '2024-02-18', priority: 'medium' },
+  //   { id: 6, text: 'Cook dinner', completed: false, dateAdded: '2024-02-12', dateDue: '2024-02-19', priority: 'low' },
+  //   { id: 7, text: 'Go for a walk', completed: false, dateAdded: '2024-02-13', dateDue: '2024-02-20', priority: 'high' },
+  //   { id: 8, text: 'Watch a movie', completed: false, dateAdded: '2024-02-14', dateDue: '2024-02-21', priority: 'medium' },
+  //   { id: 9, text: 'Call a friend', completed: false, dateAdded: '2024-02-15', dateDue: '2024-02-22', priority: 'low' },
+  //   { id: 10, text: 'Go to the gym', completed: false, dateAdded: '2024-02-16', dateDue: '2024-02-23', priority: 'high' },
+  //   { id: 11, text: 'Write a blog post', completed: false, dateAdded: '2024-02-17', dateDue: '2024-02-24', priority: 'medium' },
+  //   { id: 12, text: 'Clean the house', completed: false, dateAdded: '2024-02-18', dateDue: '2024-02-25', priority: 'low' },
+  //   { id: 13, text: 'Go grocery shopping', completed: false, dateAdded: '2024-02-19', dateDue: '2024-02-26', priority: 'high' },
+  //   { id: 14, text: 'Read emails', completed: false, dateAdded: '2024-02-20', dateDue: '2024-02-27', priority: 'medium' },
+  //   { id: 15, text: 'Do laundry', completed: false, dateAdded: '2024-02-21', dateDue: '2024-02-28', priority: 'low' },
+  // ]);
+
+  const [todos, todosDispatch] = useReducer(todoReducer, initialTodos);
 
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [filter, setFilter] = useState('default');
@@ -36,20 +72,26 @@ const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [sortDirection, setSortDirection] = useState('ascending');
   const [selectedColor, setSelectedColor] = useState('gray');
+
   const colorArray = ["gray", "red", "orange", "yellow", "green", "blue", "violet"]
   // const [sortAsc, setSortAsc] = useState(true);
 
-  const onDelete = (id) => { setTodos(todos.filter((todo) => todo.id !== id)); };
+  const onDelete = (id) => {
+    todosDispatch({type:'delete',id: id});
+    //setTodos(todos.filter((todo) => todo.id !== id));
+  };
   const onToggle = (id) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      )
-    );
+    todosDispatch({type:'toggle',id: id});
+    // setTodos(
+    //   todos.map((todo) =>
+    //     todo.id === id ? { ...todo, completed: !todo.completed } : todo
+    //   )
+    // );
   };
   const onAdd = (text) => {
-    const newTodo = { id: todos.length + 1, text, completed: false };
-    setTodos([...todos, newTodo]);
+    todosDispatch({type:'add',text: text});
+    // const newTodo = { id: todos.length + 1, text, completed: false };
+    // setTodos([...todos, newTodo]);
   };
   // const onEdit = (id, text) => {
   //   const newText = window.prompt('Edit task:', text);
@@ -61,15 +103,15 @@ const App = () => {
   //   );
   // };
   const onEdit = (id, editedText, editedDateAdded, editedDateDue, editedPriority) => {
-    // Find the todo item by id
     const editedTodo = todos.find(todo => todo.id === id);
-    // Update the todo item with new values
+
     editedTodo.text = editedText;
     editedTodo.dateAdded = editedDateAdded;
     editedTodo.dateDue = editedDateDue;
     editedTodo.priority = editedPriority;
-    // Update the state with the updated todo item
-    setTodos([...todos.filter(todo => todo.id !== id), editedTodo]);
+
+    todosDispatch({type: 'edit', id: id, editedTodo: editedTodo})
+    // setTodos([...todos.filter(todo => todo.id !== id), editedTodo]);
   };
   const filterTodos = () => {
     let filteredTodos = todos;
