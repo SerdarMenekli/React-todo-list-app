@@ -20,10 +20,13 @@ const App = () => {
         return [...todos, { id: nextId++, text: action.text, completed: false, dateAdded: getCurrentDate('-'), dateDue: getCurrentDate('-'), priority: 'medium' }];
       case 'delete':
         return todos.filter(todo => (todo.id !== action.id));
-      case 'toggle':
-        return todos.map((todo) => todo.id === action.id ? { ...todo, completed: !todo.completed } : todo);
+      // case 'toggle':
+      //   return todos.map((todo) => todo.id === action.id ? { ...todo, completed: !todo.completed } : todo);
       case 'edit':
-        return [...todos.filter(todo => todo.id !== action.id), action.editedTodo];
+        return [...todos.filter(todo => todo.id !== action.todo.id), action.todo];
+      default:{
+        throw Error('Unknown action: ' + action.type);
+      }
     }
   }
 
@@ -76,18 +79,18 @@ const App = () => {
   const colorArray = ["gray", "red", "orange", "yellow", "green", "blue", "violet"]
   // const [sortAsc, setSortAsc] = useState(true);
 
-  const onDelete = (id) => {
+  const handleDelete = (id) => {
     todosDispatch({type:'delete',id: id});
     //setTodos(todos.filter((todo) => todo.id !== id));
   };
-  const onToggle = (id) => {
-    todosDispatch({type:'toggle',id: id});
-    // setTodos(
-    //   todos.map((todo) =>
-    //     todo.id === id ? { ...todo, completed: !todo.completed } : todo
-    //   )
-    // );
-  };
+  // const handleToggle = (id) => {
+  //   todosDispatch({type:'toggle',id: id});
+  //   // setTodos(
+  //   //   todos.map((todo) =>
+  //   //     todo.id === id ? { ...todo, completed: !todo.completed } : todo
+  //   //   )
+  //   // );
+  // };
   const onAdd = (text) => {
     todosDispatch({type:'add',text: text});
     // const newTodo = { id: todos.length + 1, text, completed: false };
@@ -102,15 +105,17 @@ const App = () => {
   //     )
   //   );
   // };
-  const onEdit = (id, editedText, editedDateAdded, editedDateDue, editedPriority) => {
-    const editedTodo = todos.find(todo => todo.id === id);
+  const handleEdit = (todo) => {
+    // id, editedText, editedDateAdded, editedDateDue, editedPriority
 
-    editedTodo.text = editedText;
-    editedTodo.dateAdded = editedDateAdded;
-    editedTodo.dateDue = editedDateDue;
-    editedTodo.priority = editedPriority;
+    // const editedTodo = todos.find(todo => todo.id === id);
 
-    todosDispatch({type: 'edit', id: id, editedTodo: editedTodo})
+    // editedTodo.text = editedText;
+    // editedTodo.dateAdded = editedDateAdded;
+    // editedTodo.dateDue = editedDateDue;
+    // editedTodo.priority = editedPriority;
+
+    todosDispatch({type: 'edit', todo: todo})
     // setTodos([...todos.filter(todo => todo.id !== id), editedTodo]);
   };
   const filterTodos = () => {
@@ -166,7 +171,7 @@ const App = () => {
           <div className='container text-center'>
             <h1 className='mt-3 mb-3 text-center'>Todo List</h1>
             <AddTaskForm onAdd={onAdd} />
-            <TodoList todos={filterTodos()} onDelete={onDelete} onToggle={onToggle} onEdit={onEdit} />
+            { <TodoList todos={filterTodos()} onDelete={handleDelete} /*onToggle={handleToggle}*/ onEdit={handleEdit} /> }
           </div>
         </div>
         <div className='col-12 col-lg-3'>

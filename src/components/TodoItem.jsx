@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrashAlt, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 
-const TodoItem = ({ todo, onDelete, onToggle, onEdit }) => {
+const TodoItem = ({ todo, onDelete, onEdit }) => {
 
   const { id, text, completed, dateAdded, dateDue, priority } = todo;
 
@@ -15,7 +15,9 @@ const TodoItem = ({ todo, onDelete, onToggle, onEdit }) => {
 
   const handleEdit = () => {
     // console.log(editedPriority);
-    onEdit(id, editedText, editedDateAdded, editedDateDue, editedPriority);
+    const task = {...todo, text: editedText, dateAdded:editedDateAdded, dateDue:editedDateDue, priority:editedPriority}
+    // onEdit(id, editedText, editedDateAdded, editedDateDue, editedPriority);
+    onEdit(task);
     setEditMode(false);
   };
 
@@ -27,7 +29,15 @@ const TodoItem = ({ todo, onDelete, onToggle, onEdit }) => {
             <input
               type="checkbox"
               checked={completed}
-              onChange={() => onToggle(id)}
+              onChange={
+                (e) => {
+                  onEdit({
+                    ...todo,
+                    completed: e.target.checked,
+                  });
+                }
+                // () => onToggle(id)
+              }
               className='form-check-input ms-2 mt-2 me-1' />
           </div>
           <div className='flex-grow-1'>
