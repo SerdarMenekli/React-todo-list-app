@@ -17,7 +17,7 @@ const ColorPicker = ({selectedColor, setSelectedColor, colorArray}) => {
     return (
         <div className="color-picker d-flex flex-row justify-content-around w-100">
             {colorArray.map((color) => (
-                <ColorPickerRadioButton color={color} selectedColor={selectedColor} setSelectedColor={setSelectedColor} handleColorChange={handleColorChange} />
+                <ColorPickerRadioButton color={color} selectedColor={selectedColor} onColorChange={handleColorChange} />
             ))}
         </div>
     );
