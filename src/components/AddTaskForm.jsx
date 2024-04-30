@@ -1,15 +1,24 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { useTodosDispatchContext } from '../script/TodosContext';
 
-const AddTaskForm = ({ onAdd }) => {
+const AddTaskForm = () => {
   const [text, setText] = useState('');
+  const todosDispatch = useTodosDispatchContext();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!text.trim()) return;
     onAdd(text);
     setText('');
+  };
+
+  const onAdd = (text) => {
+    console.log(nextId);
+    todosDispatch({ type: 'add', id: nextId++, text: text });
+    // const newTodo = { id: todos.length + 1, text, completed: false };
+    // setTodos([...todos, newTodo]);
   };
 
   return (
@@ -27,8 +36,9 @@ const AddTaskForm = ({ onAdd }) => {
         </form>
       </div>
     </div>
-    
   );
 };
+
+let nextId = 16;
 
 export default AddTaskForm;

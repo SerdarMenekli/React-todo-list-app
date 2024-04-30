@@ -2,8 +2,9 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrashAlt, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
+import { useTodosDispatchContext } from '../script/TodosContext';
 
-const TodoItem = ({ todo, onDelete, onEdit }) => {
+const TodoItem = ({ todo }) => {
 
   const { id, text, completed, dateAdded, dateDue, priority } = todo;
 
@@ -13,12 +14,18 @@ const TodoItem = ({ todo, onDelete, onEdit }) => {
   const [editedDateDue, setEditedDateDue] = useState(dateDue);
   const [editedPriority, setEditedPriority] = useState(priority);
 
+  const todosDispatch = useTodosDispatchContext();
+
   const handleEdit = () => {
     // console.log(editedPriority);
-    const task = {...todo, text: editedText, dateAdded:editedDateAdded, dateDue:editedDateDue, priority:editedPriority}
+    // const task = {...todo, text: editedText, dateAdded:editedDateAdded, dateDue:editedDateDue, priority:editedPriority}
     // onEdit(id, editedText, editedDateAdded, editedDateDue, editedPriority);
-    onEdit(task);
+    todosDispatch({ type: 'edit', todo: { ...todo, text: editedText, dateAdded: editedDateAdded, dateDue: editedDateDue, priority: editedPriority } })
     setEditMode(false);
+  };
+  const handleDelete = (id) => {
+    todosDispatch({ type: 'delete', id: id });
+    //setTodos(todos.filter((todo) => todo.id !== id));
   };
 
   return (
@@ -31,17 +38,18 @@ const TodoItem = ({ todo, onDelete, onEdit }) => {
               checked={completed}
               onChange={
                 (e) => {
-                  onEdit({
-                    ...todo,
-                    completed: e.target.checked,
-                  });
+                  todosDispatch({ type: 'edit', todo: { ...todo, completed: e.target.checked } })
+                  // onEdit({
+                  //   ...todo,
+                  //   completed: e.target.checked,
+                  // });
                 }
                 // () => onToggle(id)
               }
               className='form-check-input ms-2 mt-2 me-1' />
           </div>
           <div className='flex-grow-1'>
-            <div className='text-start m-2'  style={{ whiteSpace: 'pre-line' }}>
+            <div className='text-start m-2' style={{ whiteSpace: 'pre-line' }}>
               <span >
                 {text}
               </span>
@@ -55,7 +63,7 @@ const TodoItem = ({ todo, onDelete, onEdit }) => {
               </span>
               <span>
                 <button type='button' className='btn' onClick={() => setEditMode(true)} ><FontAwesomeIcon icon={faPen} /></button>
-                <button className='btn me-2' onClick={() => onDelete(id)}><FontAwesomeIcon icon={faTrashAlt} /></button>
+                <button className='btn me-2' onClick={() => handleDelete(id)}><FontAwesomeIcon icon={faTrashAlt} /></button>
               </span>
             </div>
           </div>
