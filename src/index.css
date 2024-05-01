@@ -17,7 +17,6 @@ code {
   
   --multiplier: 1.45;
 
-
   /* "gray", "red", "orange", "yellow", "green", "blue", "violet" */
   --gray-color:hsl(0, 0%, 56%);
   --gray-color-box-shadow: hsl(0, 0%, 82%);
@@ -35,8 +34,6 @@ code {
   --violet-color-box-shadow: hsl(300, 76%, 92%);
 }
 
-
-
 .todo-card .form-check-input:checked {
   background-color: var(--selected-color);
   border-color: var(--selected-color);
@@ -46,6 +43,15 @@ code {
   border-color: var(--selected-color);
 }
 
+.add-task-btn{
+  color: var(--selected-color) !important;
+}
+
+.add-task-btn:focus, .add-task-btn:hover, .add-task-btn:active{
+  background-color: var(--selected-color) !important;
+  border-color: var(--selected-color) !important;
+  color: white !important; 
+}
 /* .color-picker .form-check-input:focus {
   box-shadow: 0 0 0 0.25rem var(--selected-color-box-shadow);
   border-color: var(--selected-color);

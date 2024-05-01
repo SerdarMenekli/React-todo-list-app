@@ -34,7 +34,7 @@ const Menu = () => {
 
 
     return (
-        <div className='d-flex flex-column align-items-end justify-content-start'>
+        <div className='fixed-top d-flex flex-column align-items-end justify-content-start' style={{ left: 'auto' }}>
             <button type="button" className="mt-3 me-3 btn" onClick={ ()=>{ setIsMenuVisible(!isMenuVisible); } }>
                 <FontAwesomeIcon icon={isMenuVisible ? faChevronRight : faChevronLeft} />
             </button>

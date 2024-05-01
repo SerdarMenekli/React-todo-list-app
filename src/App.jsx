@@ -127,11 +127,10 @@ const App = () => {
             <div className='container text-center'>
               <h1 className='mt-3 mb-3 text-center'>Todo List</h1>
               <AddTaskForm />
-              {<TodoList /*onDelete={handleDelete} onToggle={handleToggle}onEdit={handleEdit} */ />}
+              <TodoList /*onDelete={handleDelete} onToggle={handleToggle}onEdit={handleEdit} */ />
             </div>
           </div>
           <div className='col-12 col-lg-3'>
-            <div className='fixed-top' style={{ left: 'auto' }}>
               <Menu
                 // onSearch={onSearch}
                 // filter={filter}
@@ -147,8 +146,6 @@ const App = () => {
                 // setSelectedColor={setSelectedColor}
                 // colorArray={colorArray}
               />
-            </div>
-
           </div>
 
           {/* <div className='col-3 d-flex flex-column align-items-end justify-content-start'>
