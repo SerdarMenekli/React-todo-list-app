@@ -13,7 +13,7 @@ import ColorPicker from './ColorPicker';
 
 
 // toggleMenu, isMenuVisible, onSearch, filter, setFilter, sort, onSort, sortDirection, onSortDirectionChange, resetFilters,
-const Menu = ({ selectedColor, setSelectedColor, colorArray}) => {
+const Menu = () => {
     const [isMenuVisible, setIsMenuVisible] = useState(true);
     // const toggleMenu = () => { setIsMenuVisible(!isMenuVisible); };
 
@@ -46,7 +46,7 @@ const Menu = ({ selectedColor, setSelectedColor, colorArray}) => {
                     <button type="button" className="btn btn-secondary mb-3" onClick={resetFilters}>
                         Reset
                     </button>
-                    <ColorPicker selectedColor={selectedColor} setSelectedColor={setSelectedColor} colorArray={colorArray}/>
+                    <ColorPicker/>
                 </div>
             </div>
         </div>

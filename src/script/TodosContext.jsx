@@ -1,18 +1,21 @@
 import { useReducer, useContext, createContext } from "react";
 import { getCurrentDate } from "../utility/GetCurrentDate";
 import { FilterSettingsProvider } from "./FilterContext";
+import { ColorProvider } from "./ColorContext";
 
 const TodosContext = createContext(null);
 const TodosDispatchContext = createContext(null);
 
-export function TodosProvider({children}) {
+export function TodosProvider({ children }) {
     const [todos, todosDispatch] = useReducer(todoReducer, initialTodos);
 
     return (
         <TodosContext.Provider value={todos}>
             <TodosDispatchContext.Provider value={todosDispatch}>
                 <FilterSettingsProvider>
-                    {children} 
+                    <ColorProvider>
+                        {children}
+                    </ColorProvider>
                 </FilterSettingsProvider>
             </TodosDispatchContext.Provider>
         </TodosContext.Provider>
@@ -35,11 +38,11 @@ function todoReducer(todos, action) {
     }
 }
 
-export function useTodosContext(){
+export function useTodosContext() {
     return useContext(TodosContext);
 }
 
-export function useTodosDispatchContext(){
+export function useTodosDispatchContext() {
     return useContext(TodosDispatchContext);
 }
 

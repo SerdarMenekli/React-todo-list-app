@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import ColorPickerRadioButton from './ColorPickerRadioButton';
+import { useColorArrayContext, useSelectedColorContext, useSetSelectedColorContext } from '../script/ColorContext';
 
-const ColorPicker = ({selectedColor, setSelectedColor, colorArray}) => {
+const ColorPicker = () => {
+    const selectedColor = useSelectedColorContext();
+    const setSelectedColor = useSetSelectedColorContext();
+    const colorArray = useColorArrayContext();
+
     // const [selectedColor, setSelectedColor] = useState('gray');
     //const colorArray = ["gray", "red", "orange", "yellow", "green", "blue", "violet"]
     const handleColorChange = (event) => {
@@ -13,6 +18,7 @@ const ColorPicker = ({selectedColor, setSelectedColor, colorArray}) => {
 
         document.documentElement.style.setProperty(`--selected-color-box-shadow`, boxShadowValue);
     };
+
 
     return (
         <div className="color-picker d-flex flex-row justify-content-around w-100">

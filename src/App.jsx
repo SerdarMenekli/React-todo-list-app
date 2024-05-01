@@ -51,8 +51,8 @@ const App = () => {
 
   // const [todos, todosDispatch] = useReducer(todoReducer, initialTodos);
 
-  const todos = useTodosContext();
-  const todosDispatch = useTodosDispatchContext();
+  // const todos = useTodosContext();
+  // const todosDispatch = useTodosDispatchContext();
 
   // const [isMenuVisible, setIsMenuVisible] = useState(false);
 
@@ -61,9 +61,9 @@ const App = () => {
   // const [searchQuery, setSearchQuery] = useState('');
   // const [sortDirection, setSortDirection] = useState('ascending');
 
-  const [selectedColor, setSelectedColor] = useState('gray');
+  // const [selectedColor, setSelectedColor] = useState('gray');
 
-  const colorArray = ["gray", "red", "orange", "yellow", "green", "blue", "violet"]
+  // const colorArray = ["gray", "red", "orange", "yellow", "green", "blue", "violet"];
   // const [sortAsc, setSortAsc] = useState(true);
 
   // const handleDelete = (id) => {
@@ -120,7 +120,6 @@ const App = () => {
 
   return (
     <TodosProvider>
-      <div className=''>
         <div className='row'>
           <div className='col-lg-3 d-none d-lg-block'>
           </div>
@@ -144,9 +143,9 @@ const App = () => {
                 // isMenuVisible={isMenuVisible}
                 // toggleMenu={toggleMenu}
                 // resetFilters={resetFilters}
-                selectedColor={selectedColor}
-                setSelectedColor={setSelectedColor}
-                colorArray={colorArray}
+                // selectedColor={selectedColor}
+                // setSelectedColor={setSelectedColor}
+                // colorArray={colorArray}
               />
             </div>
 
@@ -176,7 +175,6 @@ const App = () => {
           </div>
         </div> */}
         </div>
-      </div>
     </TodosProvider>
   );
 };
