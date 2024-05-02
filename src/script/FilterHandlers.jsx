@@ -13,7 +13,7 @@ const FilterHandlers = {
     onSort: (value, setSort) => { setSort(value); },
     onSortDirectionChange: (value, setSortDirection) => { setSortDirection(value); },
 
-    toggleMenu: (isMenuVisible, setIsMenuVisible) => { setIsMenuVisible(!isMenuVisible); },
+    // toggleMenu: (isMenuVisible, setIsMenuVisible) => { setIsMenuVisible(!isMenuVisible); },
     
     resetFilters: (setFilter, setSort, setSortDirection) => {
       setFilter('default');
